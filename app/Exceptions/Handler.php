@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -23,8 +25,20 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            if ($request->is('api/v1/products/*')) {
+                return response()->json([
+                    "message" => "Product not found"
+                ], 404);
+            }
+        });
+
+        $this->renderable(function (AccessDeniedHttpException $e, $request) {
+            if ($request->is('api/v1/products/*') || $request->is('api/v1/products')) {
+                return response()->json([
+                    "message" => "You are not authorized to access this resource"
+                ], 403);
+            }
         });
     }
 }
