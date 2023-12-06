@@ -54,7 +54,9 @@ run server
 
 ## API Documentation
 
-For api documentation you can download postman and import the collection that include in root folder when you clone the project
+For api documentation you can download postman and import than copy the postman collection API down below
+
+https://api.postman.com/collections/7777643-cb401f76-0504-4566-be70-fdaf18dd80b2?access_key=PMAT-01HGYWMG41N24CFKJ185CXWC5H
 
 response status code:
 
